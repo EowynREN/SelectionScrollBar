@@ -38,9 +38,9 @@ public class SelectionScrollBar: UIView {
     /// Delegate that sends interaction events
     public weak var delegate: SelectionScrollBarDelegate?
     /// The amount of spacing between each selection button
-    public var selectionSpacing: CGFloat = 15
+    public var selectionSpacing: CGFloat = 5
     /// The margin amount on the sides of the scrollview
-    public var sideMargin: CGFloat = 15.0 {
+    public var sideMargin: CGFloat = 5.0 {
         didSet {
             self.setScrollInsets()
         }
@@ -151,7 +151,12 @@ extension SelectionScrollBar {
             spacing += button.frame.width
             let lastIndex = count - 1
             if i != lastIndex {
-                spacing += self.selectionSpacing
+                let seperator = UIView(frame: CGRect(x: spacing + selectionSpacing / 2, y: 0, width: 0.3, height: self.frame.height))
+                seperator.backgroundColor = UIColor(red: 100/255, green: 100/255, blue: 100/255, alpha: 1)
+                seperator.center.y = self.frame.height * 0.5
+                self.contentView.addSubview(seperator)
+                
+                spacing += self.selectionSpacing + 1
             }
             self.set(button: button, for: i)
             button.addTarget(self, action: #selector(tappedButton(button:)), for: .touchUpInside)
