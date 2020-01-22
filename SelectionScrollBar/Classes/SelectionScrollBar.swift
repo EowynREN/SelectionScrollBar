@@ -49,6 +49,12 @@ public class SelectionScrollBar: UIView {
     public var contentSize: CGFloat {
         return self.contentView.frame.width
     }
+    /// self added: The predicted words list
+    public var predictionList: [String] = [] {
+        didSet {
+            self.refresh()
+        }
+    }
     
     //MARK: --- Internal ---
     /// The scrollview for scrolling through selection buttons
