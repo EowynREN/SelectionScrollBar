@@ -99,6 +99,11 @@ public class SelectionScrollBar: UIView {
             self.reloadLayout()
         }
     }
+    
+    public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        print(1)
+        self.delegate?.selectionScrollBar(self, didScrolled: scrollView)
+    }
 }
 
 extension SelectionScrollBar {

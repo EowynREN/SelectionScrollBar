@@ -33,10 +33,14 @@ public protocol SelectionScrollBarDelegate: class {
     
     /// The title of the selected button
     func selectionScrollBar(_ scrollBar: SelectionScrollBar, didSelectTitle title: String?)
+    
+    /// Self added: the scroll view in selection scroll var
+    func selectionScrollBar(_ scrollBar: SelectionScrollBar, didScrolled scrollView: UIScrollView)
 }
 
 public extension SelectionScrollBarDelegate {
     
     func selectionScrollBar(_ scrollBar: SelectionScrollBar, didSelectButtonAtIndex index: Int) { }
     func selectionScrollBar(_ scrollBar: SelectionScrollBar, didSelectTitle title: String?) { }
+    func selectionScrollBar(_ scrollBar: SelectionScrollBar, didScrolled scrollView: UIScrollView) { }
 }
