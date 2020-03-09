@@ -25,8 +25,9 @@
 //
 
 import Foundation
+import UIKit
 
-public protocol SelectionScrollBarDelegate: class {
+public protocol SelectionScrollBarDelegate: UIScrollViewDelegate {
     
     /// The index of the selected button
     func selectionScrollBar(_ scrollBar: SelectionScrollBar, didSelectButtonAtIndex index: Int)

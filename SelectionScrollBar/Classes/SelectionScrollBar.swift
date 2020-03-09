@@ -26,7 +26,7 @@
 
 import UIKit
 
-public class SelectionScrollBar: UIView {
+public class SelectionScrollBar: UIScrollView {
     
     // TODO: add ability for arrows on each side
     
@@ -35,8 +35,15 @@ public class SelectionScrollBar: UIView {
     //MARK: --- Public ---
     /// DataSource that supplies the selections available in the srollable area
     public weak var dataSource: SelectionScrollBarDataSource?
+    /// self added: hacking the UIScrollDelegate
+    var myDelegate: SelectionScrollBarDelegate?
     /// Delegate that sends interaction events
-    public weak var delegate: SelectionScrollBarDelegate?
+    //    public weak var delegate: SelectionScrollBarDelegate?
+    override public weak var delegate: UIScrollViewDelegate? {
+        didSet {
+            myDelegate = delegate as? SelectionScrollBarDelegate
+        }
+    }
     /// The amount of spacing between each selection button
     public var selectionSpacing: CGFloat = 5
     /// The margin amount on the sides of the scrollview
@@ -46,7 +53,7 @@ public class SelectionScrollBar: UIView {
         }
     }
     /// The size of the scrollable selections 
-    public var contentSize: CGFloat {
+    public var sizeOfContent: CGFloat {
         return self.contentView.frame.width
     }
     /// self added: The predicted words list
@@ -57,8 +64,6 @@ public class SelectionScrollBar: UIView {
     }
     
     //MARK: --- Internal ---
-    /// The scrollview for scrolling through selection buttons
-    var scrollView = UIScrollView()
     /// The view containing the selection buttons
     var contentView = UIView()
     
@@ -88,8 +93,7 @@ public class SelectionScrollBar: UIView {
     }
     
     private func setup() {
-        self.addSubview(scrollView)
-        self.scrollView.constrainToBounds(of: self)
+        self.constrainToBounds(of: self)
     }
     
     public override func layoutSubviews() {
@@ -123,9 +127,9 @@ extension SelectionScrollBar {
         } else {
             margin = self.sideMargin
         }
-        self.scrollView.contentInset.left = margin
-        self.scrollView.contentInset.right = margin
-        self.scrollView.contentOffset.x = -margin
+        self.contentInset.left = margin
+        self.contentInset.right = margin
+        self.contentOffset.x = -margin
     }
     
     private func positionContentView() {
@@ -169,8 +173,8 @@ extension SelectionScrollBar {
         }
         self.contentView.frame.size.width = spacing
         self.contentView.frame.size.height = self.frame.height
-        self.scrollView.addSubview(self.contentView)
-        self.scrollView.contentSize = CGSize(width: self.contentSize, height: self.contentView.frame.height)
+        self.addSubview(self.contentView)
+        self.contentSize = CGSize(width: self.sizeOfContent, height: self.contentView.frame.height)
     }
     
     private func set(button: UIButton, for index: Int) {
