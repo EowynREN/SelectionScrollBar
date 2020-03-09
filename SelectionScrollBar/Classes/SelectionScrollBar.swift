@@ -93,7 +93,8 @@ public class SelectionScrollBar: UIScrollView {
     }
     
     private func setup() {
-        self.constrainToBounds(of: self)
+        // coment this out for making SelectionScrollBar show correctly as UIScrollView
+//        self.constrainToBounds(of: self)
     }
     
     public override func layoutSubviews() {
