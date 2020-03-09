@@ -187,8 +187,8 @@ extension SelectionScrollBar {
 
     @objc func tappedButton(button: UIButton) {
         let index = self.getIndex(for: button)
-        self.delegate?.selectionScrollBar(self, didSelectButtonAtIndex: index)
-        self.delegate?.selectionScrollBar(self, didSelectTitle: button.titleLabel?.text)
+        self.myDelegate?.selectionScrollBar(self, didSelectButtonAtIndex: index)
+        self.myDelegate?.selectionScrollBar(self, didSelectTitle: button.titleLabel?.text)
     }
 }
 
